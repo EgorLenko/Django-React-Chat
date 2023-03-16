@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models.models import ChatRoom
-from .models.profile.user_profile import UserProfile
+from .models import ChatRoom, Message, UserProfile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,10 +27,10 @@ class ChatRoomSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'members']
 
 
-# class MessageSerializer(serializers.ModelSerializer):
-#     user = UserSerializer()  # serializers.StringRelatedField()
-#     room = ChatRoomSerializer(read_only=True)
-#
-#     class Meta:
-#         model = Message
-#         fields = ['id', 'msg_id', 'user', 'room', 'content', 'created_at']
+class MessageSerializer(serializers.ModelSerializer):
+    user = UserSerializer()  # serializers.StringRelatedField()
+    room = ChatRoomSerializer(read_only=True)
+
+    class Meta:
+        model = Message
+        fields = ['id', 'msg_id', 'user', 'room', 'content', 'created_at']

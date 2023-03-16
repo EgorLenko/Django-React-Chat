@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 import os
 import djongo
 import environ
+
+from pathlib import Path
 
 env = environ.Env(
     # set casting, default value
@@ -85,11 +86,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'DjangoChat.wsgi.application'
 ASGI_APPLICATION = "DjangoChat.asgi.application"
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': "channels.layers.InMemoryChannelLayer"
-        }
-    }
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -113,6 +109,15 @@ DATABASES = {
                 # 'authSource': env('MG_DB_DATABASE_NAME'),
                 # 'authMechanism': 'SCRAM-SHA-1'
             },
+    },
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
     },
 }
 

@@ -1,7 +1,7 @@
 from rest_framework import generics
-from ..models.models import ChatRoom
-from ..models.profile.user_profile import UserProfile
-from ..serializers import UserSerializer, ChatRoomSerializer
+
+from ..models import ChatRoom, Message, UserProfile
+from ..serializers import UserSerializer, ChatRoomSerializer, MessageSerializer
 
 
 class UserList(generics.ListCreateAPIView):
@@ -16,14 +16,14 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # ? INFO: Deprecated because of migration from Postgres to MongoDB (might come in handy later)
 
-# class MessageList(generics.ListCreateAPIView):
-#     queryset = Message.objects.all()
-#     serializer_class = MessageSerializer
-#
-#
-# class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Message.objects.all()
-#     serializer_class = MessageSerializer
+class MessageList(generics.ListCreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+
+
+class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
 
 
 class ChatRoomList(generics.ListCreateAPIView):
