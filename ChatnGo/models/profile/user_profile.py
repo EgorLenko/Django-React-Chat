@@ -17,7 +17,7 @@ class UserProfile(AbstractUser):
     gender = models.TextChoices('gender', 'Male Female None')
     photo = models.URLField(null=True)  # TODO 3: Change to ImageField
     online = models.BooleanField(default=False)
-    rooms = models.ManyToManyField(ChatRoom, related_name='rooms')
+    chat_rooms = models.ManyToManyField(ChatRoom, related_name='rooms')
     # email = models.EmailField(max_length=254, blank=False, null=False)
     phone = models.CharField(max_length=30, blank=True, null=True)  # TODO 5: need validation
     telegram = models.CharField(max_length=30, blank=True, null=True)  # TODO 5: need validation

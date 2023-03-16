@@ -79,7 +79,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }))
 
     async def load_users(self, event):
-        users = User.objects.filter(rooms=self.room_name)  # TODO 1: FIX IT!
+        users = User.objects.filter(rooms=self.room_name)  # TODO 1: Check if related_name works in ManyToMany!
         users_serialized = serializers.serialize('json', users)
 
         # Send users to WebSocket
