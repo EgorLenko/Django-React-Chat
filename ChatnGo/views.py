@@ -1,2 +1,2 @@
 from django.shortcuts import render
-from .views import *
+from .api.views import *
