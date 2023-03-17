@@ -24,9 +24,15 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoChat.settings')
 # path("chat/<str:room_name>/", ChatConsumer.as_asgi()),
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
-    "websocket": AllowedHostsOriginValidator(
-        AuthMiddlewareStack(
+    "websocket": AuthMiddlewareStack(
             URLRouter([*ChatnGo.routing.websocket_urlpatterns])
-        )
-    ),
+        ),
 })
+# application = ProtocolTypeRouter({
+#     "http": get_asgi_application(),
+#     "websocket": AllowedHostsOriginValidator(
+#         AuthMiddlewareStack(
+#             URLRouter([*ChatnGo.routing.websocket_urlpatterns])
+#         )
+#     ),
+# })
