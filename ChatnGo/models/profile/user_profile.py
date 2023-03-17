@@ -2,8 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator
 from django.db import models
 
-from ..models import ChatRoom
-
 
 class UserProfile(AbstractUser):
     # Custom User model that extends default Django User model
@@ -13,11 +11,10 @@ class UserProfile(AbstractUser):
     # first_name = models.CharField(max_length=30, blank=False, null=False)
     # last_name = models.CharField(max_length=30, blank=False, null=False)
     # username = models.CharField(max_length=30, blank=False, null=False)
-    age = models.PositiveSmallIntegerField(blank=True, null=True) #validators=[MaxValueValidator(150)]
+    age = models.PositiveSmallIntegerField(blank=True, null=True)  # validators=[MaxValueValidator(150)]
     gender = models.TextChoices('gender', 'Male Female None')
     photo = models.URLField(null=True)  # TODO 3: Change to ImageField
     online = models.BooleanField(default=False)
-    chat_rooms = models.ManyToManyField(ChatRoom, related_name='rooms')
     # email = models.EmailField(max_length=254, blank=False, null=False)
     phone = models.CharField(max_length=30, blank=True, null=True)  # TODO 5: need validation
     telegram = models.CharField(max_length=30, blank=True, null=True)  # TODO 5: need validation

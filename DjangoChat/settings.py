@@ -40,6 +40,7 @@ ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS').split(' ')
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,8 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
-    'channels',
     'ChatnGo.apps.ChatngoConfig',
 ]
 
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'DjangoChat.urls'
@@ -112,15 +114,6 @@ DATABASES = {
     },
 }
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
-
 MSG_DB = {
     'NAME': env('MG_DB_DATABASE_NAME'),
     'HOST': env('MG_DB_HOST'),
@@ -128,6 +121,15 @@ MSG_DB = {
     'USERNAME': env('MG_DB_USER'),
     'PASSWORD': env('MG_DB_PASSWORD'),
     # 'AUTH_SOURCE': env('MG_DB_DATABASE_NAME'),
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379), "redis://localhost:6379"],
+        },
+    },
 }
 
 # Password validation
@@ -171,6 +173,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# REST configuration
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -187,5 +190,8 @@ REST_FRAMEWORK = {
     ],
 
     'COMPACT_JSON': False,
-
 }
+
+# Configure allowed origins
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://localhost:3000',
+                        'http://127.0.0.1:3000', 'https://127.0.0.1:3000']

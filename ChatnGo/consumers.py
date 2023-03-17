@@ -26,6 +26,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
+        await self.send(text_data=json.dumps('type':'connecntion created', 'message':'def connect create'))
 
         await self.accept()
 
