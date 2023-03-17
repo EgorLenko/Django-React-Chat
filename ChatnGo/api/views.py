@@ -1,10 +1,20 @@
 from rest_framework import generics
+# from rest_framework.permissions import IsAuthenticated
 
 from ..models import ChatRoom, Message, UserProfile
 from ..serializers import UserSerializer, ChatRoomSerializer, MessageSerializer
 
 
 class UserList(generics.ListCreateAPIView):
+    # Boilerplate for permission system:
+    # permission_classes = [IsAuthenticated]
+    #
+    # def get_queryset(self):
+    #     return UserProfile.objects.filter(user=self.request.user)
+    #
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
+
     queryset = UserProfile.objects.all()
     serializer_class = UserSerializer
 
@@ -14,9 +24,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
 
 
-# ? INFO: Deprecated because of migration from Postgres to MongoDB (might come in handy later)
-
-class MessageList(generics.ListCreateAPIView):
+class MessageList(generics.ListAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 

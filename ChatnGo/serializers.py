@@ -5,7 +5,7 @@ from .models import ChatRoom, Message, UserProfile
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'password', 'online')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -24,13 +24,24 @@ class ChatRoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChatRoom
-        fields = ['id', 'name', 'members']
+        fields = ('id', 'name', 'members')
+
+    def create(self, validated_data):
+        return ChatRoom.objects.create(**validated_data)
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    user = UserSerializer()  # serializers.StringRelatedField()
-    room = ChatRoomSerializer(read_only=True)
+    # user = UserSerializer(read_only=True)  # serializers.StringRelatedField()
+    # room = ChatRoomSerializer(read_only=True)
 
     class Meta:
         model = Message
-        fields = ['id', 'msg_id', 'user', 'room', 'content', 'created_at']
+        fields = ('id', 'user', 'room', 'content')
+
+    def create(self, validated_data):
+        return Message.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.content = validated_data.get('content', instance.content)
+        instance.save()
+        return instance
