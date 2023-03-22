@@ -1,6 +1,6 @@
 class ChatngoWebSocket {
     constructor(onMessage) {
-      this.socket = new WebSocket("ws://localhost:8000/ws/chat/");
+      this.socket = new WebSocket("ws://localhost:8000/ws/chat/testroom/");
       this.socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         onMessage(data);
