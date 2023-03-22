@@ -1,10 +1,9 @@
 import django.db.models
 from django.db import models
-
-from .profile.user_profile import UserProfile
-from .base import Base
-
 from django.db.models import manager
+
+from .base import Base
+from .profile.user_profile import UserProfile
 
 
 class ChatRoom(Base):

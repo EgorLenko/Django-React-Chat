@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class ChatngoConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'ChatnGo'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "ChatnGo"

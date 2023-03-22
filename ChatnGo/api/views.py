@@ -1,8 +1,10 @@
 from rest_framework import generics
-# from rest_framework.permissions import IsAuthenticated
 
 from ..models import ChatRoom, Message, UserProfile
-from ..serializers import UserSerializer, ChatRoomSerializer, MessageSerializer
+from ..serializers import ChatRoomSerializer, MessageSerializer, UserSerializer
+
+# from rest_framework.permissions import IsAuthenticated
+
 
 
 class UserList(generics.ListCreateAPIView):
