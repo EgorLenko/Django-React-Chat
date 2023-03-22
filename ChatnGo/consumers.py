@@ -1,3 +1,4 @@
+"""Websocket configuration module."""
 import json
 
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -7,12 +8,14 @@ from django.contrib.auth import get_user_model
 from django.core import serializers
 from django.http import JsonResponse
 
-from .views import *
+from .views import ChatRoom, Message, MessageSerializer
 
 User = get_user_model()
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    """Websocket consumer for chat application"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(args, kwargs)
         self.room_name = None
@@ -87,9 +90,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({"messages": messages_serialized}))
 
     async def load_users(self, event):
-        users = User.objects.filter(
-            rooms=self.room_name
-        )  # TODO 1: Check if related_name works in ManyToMany!
+        users = User.objects.filter(rooms=self.room_name)
         users_serialized = serializers.serialize("json", users)
 
         # Send users to WebSocket

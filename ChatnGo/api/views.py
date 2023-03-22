@@ -6,7 +6,6 @@ from ..serializers import ChatRoomSerializer, MessageSerializer, UserSerializer
 # from rest_framework.permissions import IsAuthenticated
 
 
-
 class UserList(generics.ListCreateAPIView):
     # Boilerplate for permission system:
     # permission_classes = [IsAuthenticated]

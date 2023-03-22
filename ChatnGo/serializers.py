@@ -1,3 +1,4 @@
+"""Serializers for API"""
 from rest_framework import serializers
 
 from .models import ChatRoom, Message, UserProfile

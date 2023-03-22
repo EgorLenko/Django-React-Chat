@@ -1,6 +1,7 @@
+"""Configuration for ChatnGo amdin module."""
 from django.contrib import admin
 
-from .models import *
+from .models import ChatRoom, Message, UserProfile
 
 # Register your models here.
 admin.site.register(UserProfile)
