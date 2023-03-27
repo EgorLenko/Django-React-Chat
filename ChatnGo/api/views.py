@@ -3,6 +3,7 @@ from rest_framework import generics
 from ..models import ChatRoom, Message, UserProfile
 from ..serializers import ChatRoomSerializer, MessageSerializer, UserSerializer
 
+
 # from rest_framework.permissions import IsAuthenticated
 
 
@@ -33,6 +34,11 @@ class MessageList(generics.ListAPIView):
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+
+# class MessageByRoom(generics.RetrieveAPIView):
+#     queryset = Message.objects.filter(room=room)
+#     serializer_class = MessageSerializer
 
 
 class ChatRoomList(generics.ListCreateAPIView):

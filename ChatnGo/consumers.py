@@ -22,7 +22,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = None
 
     async def connect(self):
-        self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
+        self.room_name = self.scope['url_route']['kwargs']['roomId']
         self.room_group_name = f"chat_{self.room_name}"
         print(f"Connecting to {self.room_name}")
         print(f"Parameters:\n {self.room_name}, {self.room_group_name}")
