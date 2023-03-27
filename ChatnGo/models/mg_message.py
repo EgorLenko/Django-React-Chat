@@ -36,10 +36,10 @@ class Message(Base):
     # TODO 5: encode msg_id
 
     user: UserProfile = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, related_name="messages"
+        UserProfile, on_delete=models.CASCADE, related_name="u_messages"
     )
     room: ChatRoom = models.ForeignKey(
-        ChatRoom, on_delete=models.CASCADE, related_name="messages"
+        ChatRoom, on_delete=models.CASCADE, related_name="r_messages"
     )
     content: str = models.TextField(max_length=1000)
     msg_id: str = models.TextField(default="0", editable=False)
