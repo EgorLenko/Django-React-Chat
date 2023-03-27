@@ -7,7 +7,7 @@ const Message = ({ message, isCurrentUser }) => {
       <Card>
         <Card.Body>
           <Card.Title>{message.username}</Card.Title>
-          <Card.Text>{message.content}</Card.Text>
+          <Card.Text>{message.message}</Card.Text>
         </Card.Body>
       </Card>
     </div>

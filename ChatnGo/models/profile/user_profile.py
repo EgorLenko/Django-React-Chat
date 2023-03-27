@@ -15,7 +15,7 @@ class UserProfile(AbstractUser):
         blank=True, null=True
     )  # validators=[MaxValueValidator(150)]
     gender = models.TextChoices("gender", "Male Female None")
-    photo = models.URLField(null=True)  # TODO 3: Change to ImageField
+    photo = models.URLField(null=True, blank=True)  # TODO 3: Change to ImageField
     online = models.BooleanField(default=False)
     # email = models.EmailField(max_length=254, blank=False, null=False)
     phone = models.CharField(

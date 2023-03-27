@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import PropTypes from "prop-types";
 
-const SendMessage = ({ onSendMessage }) => {
+const SendMessage = ({ currentUser, socket }) => {
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (message.trim() !== "") {
-      onSendMessage(message);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (message.trim()) {
+      const messageObject = {
+        message: message.trim(),
+        username: currentUser,
+      };
+
+      if (socket.readyState === WebSocket.OPEN) {
+          console.log(JSON.stringify(messageObject))
+        socket.send(JSON.stringify(messageObject));
+      }
+
       setMessage("");
     }
   };
 
-  return (
+   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="message">
         <Form.Control
@@ -23,10 +33,14 @@ const SendMessage = ({ onSendMessage }) => {
         />
       </Form.Group>
       <Button variant="primary" type="submit">
-        Send ->
+        Send -&gt;
       </Button>
     </Form>
   );
 };
 
+SendMessage.propTypes = {
+  currentUser: PropTypes.string.isRequired,
+  socket: PropTypes.instanceOf(WebSocket).isRequired,
+};
 export default SendMessage;

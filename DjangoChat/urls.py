@@ -19,5 +19,6 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("rest_framework.urls")),
+    path("dj-auth/", include('dj_rest_auth.urls')),
     path("chat/api/", include("ChatnGo.api.urls")),
 ]

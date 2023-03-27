@@ -1,3 +1,3 @@
 from django.shortcuts import render
 
-from .api.views import *
+from ChatnGo.api.views import *

@@ -1,78 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Form, InputGroup } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
-import io from "socket.io-client";
+import {useNavigate, useParams} from "react-router-dom";
+// import { Container } from "react-bootstrap";
+import Message from "./Message";
+import SendMessage from "./SendMessage";
+import {Button} from "react-bootstrap";
 
-const ChatRoom = () => {
+const ChatRoom = ({ currentUser}) => {
   const { roomId } = useParams();
   const navigate = useNavigate();
   const [socket, setSocket] = useState(null);
-  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:8000", {
-      path: `/ws/chat/${roomId}/`,
-      // query: { roomId },
-    });
+    const newSocket = new WebSocket(`ws://localhost:8000/ws/chat/${roomId}/`);
     setSocket(newSocket);
 
     return () => {
-      newSocket.disconnect();
+      newSocket.close();
     };
   }, [roomId]);
 
   useEffect(() => {
     if (!socket) return;
-    socket.on("message", (newMessage) => {
+    socket.onmessage = (event) => {
+      const newMessage = JSON.parse(event.data);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
+    };
   }, [socket]);
-
-  const handleSendMessage = (event) => {
-    event.preventDefault();
-    if (message.trim()) {
-      socket.emit("send_message", message);
-      setMessage("");
-    }
-  };
 
   const handleLeaveRoom = () => {
     if (socket) {
-      socket.disconnect();
+      socket.close();
       setSocket(null);
     }
     navigate("/");
   };
 
   return (
-    <Container>
-      <div className="chat-room">
-        {/* Display chat messages */}
-        {messages.map((msg, index) => (
-          <div key={index}>{msg}</div>
+    <div className="chat-room">
+      <div className="messages-container">
+        {messages.map((message, index) => (
+          <Message
+            key={index}
+            message={message}
+            isCurrentUser={message.username === currentUser}
+          />
         ))}
-
-        {/* Input for sending messages */}
-        <Form onSubmit={handleSendMessage}>
-        <InputGroup>
-            <Form.Control
-              type="text"
-              placeholder="Type your message here"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <InputGroup.Append>
-              <Button type="submit">Send</Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </Form>
       </div>
+      <SendMessage currentUser={currentUser} socket={socket} />
       <Button variant="danger" onClick={handleLeaveRoom}>
         Leave Room
       </Button>
-    </Container>
+    </div>
   );
 };
+
 
 export default ChatRoom;

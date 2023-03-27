@@ -1,14 +1,14 @@
 """Websocket configuration module."""
 import json
 
+from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth import get_user_model
 
 # from channels.exceptions import StopConsumer
 from django.core import serializers
-from django.http import JsonResponse
 
-from .views import ChatRoom, Message, MessageSerializer
+from ChatnGo.views.views import ChatRoom, Message
 
 User = get_user_model()
 
@@ -20,6 +20,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         super().__init__(args, kwargs)
         self.room_name = None
         self.room_group_name = None
+
+    @database_sync_to_async
+    def save_message(self, username, message):
+        user = User.objects.get(username=username)
+        chat_room = ChatRoom.objects.get(name=self.room_name)
+        Message.objects.create(user=user, content=message, room=chat_room)
 
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['roomId']
@@ -37,19 +43,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await super().disconnect(close_code)
 
     async def receive(self, text_data=None, bytes_data=None):
-        await super().receive(text_data)  # ? TODO: Dont forget to remove this
+        print('|||||||||||||||||||||||||||||||||||||||||||')
+        # print(json.loads(text_data))
+        print('===============================================')
         try:
             text_data_json = json.loads(text_data)
-            print(text_data_json)
             message = text_data_json["message"]
             username = text_data_json["username"]
-            user = User.objects.get(username=username)
-            chat_room = ChatRoom.objects.get(name=self.room_name)
 
             # Save message to database
-            msg = MessageSerializer(user=user, content=message, room=chat_room)
-            if msg.is_valid(raise_exception=True):
-                msg.create(msg.validated_data)
+            # await self.save_message(username, message)
 
             # Send message to room group
             await self.channel_layer.group_send(
@@ -57,22 +60,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 {"type": "chat_message", "message": message, "username": username},
             )
 
-        except (
-            TypeError,
-            json.decoder.JSONDecodeError,
-        ) as err:
+        except (TypeError, json.decoder.JSONDecodeError) as err:
             print(f"Catch an Exception <{err.__class__.__name__}>:\n {err}")
-            text_data_json = None
-
-        if text_data_json is None:
-            await self.send(text_data="[Invalid message]")
-            return JsonResponse({"Response": "Invalid message"}, status=400)
-            # await self.close()
+            await self.send(text_data=json.dumps({"error": "Invalid message"}))
 
     async def chat_message(self, event):
         message = event["message"]
         username = event["username"]
-
+        print('???????????????????')
+        print(username)
         # Send message to WebSocket
         await self.send(
             text_data=json.dumps({"message": message, "username": username})
