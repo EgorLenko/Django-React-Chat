@@ -39,6 +39,5 @@ class Command(BaseCommand):
                 Message(user=UserProfile.objects.order_by("?").first(), room=ChatRoom.objects.order_by("?").first(),
                         content=fake.pystr(max_chars=100)))
         Message.objects.bulk_create(bulk_message_list)
-        print(bulk_user_list)
 
         self.stdout.write(self.style.SUCCESS(f'Successfully create fake data'))
