@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { Container } from "react-bootstrap";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
-const ChatRoom = ({ currentUser}) => {
+const ChatRoom = ({ currentUser }) => {
   const { roomId } = useParams();
   const navigate = useNavigate();
   const [socket, setSocket] = useState(null);
@@ -54,6 +54,5 @@ const ChatRoom = ({ currentUser}) => {
     </div>
   );
 };
-
 
 export default ChatRoom;

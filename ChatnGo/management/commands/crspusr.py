@@ -7,5 +7,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         user = get_user_model()
-        user.objects.create_superuser(username='admin', password='admin', email='admin@aadmin.aadmin', is_superuser=True, is_staff=True)
-        self.stdout.write(self.style.SUCCESS(f'Successfully create superuser'))
+        try:
+            user.objects.create_superuser(username='admin', password='admin', email='admin@aadmin.aadmin',
+                                          is_superuser=True, is_staff=True)
+        except (Exception,) as exc:
+            self.stdout.write(self.style.error('An error occurred while creating a superuser'))
+            self.stdout.write(self.style.error(f'Exception -> {exc}'))
+
+        self.stdout.write(self.style.SUCCESS('Successfully create superuser'))

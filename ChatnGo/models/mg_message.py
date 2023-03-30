@@ -10,20 +10,20 @@ from .base import Base
 from .models import ChatRoom, UserProfile
 
 
-def get_mongodb_handler(
-    msg_host=settings.MSG_DB["HOST"],
-    msg_port=int(settings.MSG_DB["PORT"]),
-    msg_username=settings.MSG_DB["USERNAME"],
-    msg_password=settings.MSG_DB["PASSWORD"],
-):
-    # Creating Mongo Client and connecting to MongoDB (currently not-used)
-
-    client = MongoClient(
-        host=msg_host, port=msg_port, username=msg_username, password=msg_password
-    )
-    db = client[settings.MSG_DB["NAME"]]
-
-    return db, client
+# def get_mongodb_handler(
+#     msg_host=settings.MSG_DB["HOST"],
+#     msg_port=int(settings.MSG_DB["PORT"]),
+#     msg_username=settings.MSG_DB["USERNAME"],
+#     msg_password=settings.MSG_DB["PASSWORD"],
+# ):
+#     # Creating Mongo Client and connecting to MongoDB (currently not-used)
+#
+#     client = MongoClient(
+#         host=msg_host, port=msg_port, username=msg_username, password=msg_password
+#     )
+#     db = client[settings.MSG_DB["NAME"]]
+#
+#     return db, client
 
 
 class Message(Base):
@@ -51,6 +51,11 @@ class Message(Base):
         # using = 'messages_db'
         ordering = ["-created_at"]
 
+    def __init__(self, *args, **kwargs):
+        self.msg_id = f"{self.room.pk}-{self.user.pk}-{self.get_msg_count() + 1}"
+        super().__init__(*args, **kwargs)
+
+
     def save(self, *args, **kw) -> None:
         # Creating msg_id key and calling super().save method
         self.msg_id = f"{self.room.pk}-{self.user.pk}-{self.get_msg_count() + 1}"
@@ -73,4 +78,5 @@ class Message(Base):
 
     @classmethod
     def get_msg_count(cls) -> int:
-        return Message.objects.count() if not None else 0
+        msg_count = Message.objects.count()
+        return msg_count if msg_count > 0 else 0

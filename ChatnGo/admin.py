@@ -1,4 +1,4 @@
-"""Configuration for ChatnGo amdin module."""
+"""Configuration for ChatnGo admin module."""
 from django.contrib import admin
 
 from .models import ChatRoom, Message, UserProfile

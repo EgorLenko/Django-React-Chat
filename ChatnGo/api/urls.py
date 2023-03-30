@@ -1,11 +1,12 @@
 from django.urls import include, path
-from .views import *
+
+from ChatnGo.api import views as app_views
 
 urlpatterns = [
-    path("users", UserList.as_view()),
-    path("user/<int:pk>", UserDetail.as_view()),
-    path("messages", MessageList.as_view()),
-    path("messages/<int:pk>", MessageDetail.as_view()),
-    path("rooms", ChatRoomList.as_view()),
-    path("room/<int:pk>", ChatRoomDetail.as_view()),
+    path("users", app_views.UserList.as_view()),
+    path("user/<int:pk>", app_views.UserDetail.as_view()),
+    path("messages", app_views.MessageList.as_view()),
+    path("messages/<int:pk>", app_views.MessageDetail.as_view()),
+    path("rooms", app_views.ChatRoomList.as_view()),
+    path("room/<int:pk>", app_views.ChatRoomDetail.as_view()),
 ]

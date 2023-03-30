@@ -36,7 +36,6 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(" ")
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -115,14 +114,14 @@ DATABASES = {
     },
 }
 
-MSG_DB = {
-    "NAME": env("MG_DB_DATABASE_NAME"),
-    "HOST": env("MG_DB_HOST"),
-    "PORT": env("MG_DB_PORT"),
-    "USERNAME": env("MG_DB_USER"),
-    "PASSWORD": env("MG_DB_PASSWORD"),
-    # 'AUTH_SOURCE': env('MG_DB_DATABASE_NAME'),
-}
+# MSG_DB = {
+#     "NAME": env("MG_DB_DATABASE_NAME"),
+#     "HOST": env("MG_DB_HOST"),
+#     "PORT": env("MG_DB_PORT"),
+#     "USERNAME": env("MG_DB_USER"),
+#     "PASSWORD": env("MG_DB_PASSWORD"),
+#     # 'AUTH_SOURCE': env('MG_DB_DATABASE_NAME'),
+# }
 
 CHANNEL_LAYERS = {
     "default": {
@@ -151,7 +150,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -162,7 +160,6 @@ TIME_ZONE = "Europe/Kyiv"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

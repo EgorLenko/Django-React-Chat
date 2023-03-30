@@ -14,7 +14,7 @@ const SendMessage = ({ currentUser, socket }) => {
       };
 
       if (socket.readyState === WebSocket.OPEN) {
-          console.log(JSON.stringify(messageObject))
+        // console.log(JSON.stringify(messageObject));
         socket.send(JSON.stringify(messageObject));
       }
 
@@ -22,7 +22,7 @@ const SendMessage = ({ currentUser, socket }) => {
     }
   };
 
-   return (
+  return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="message">
         <Form.Control

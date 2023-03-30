@@ -1,3 +1,4 @@
+
 class ChatngoWebSocket {
     constructor(onMessage) {
       this.socket = new WebSocket("ws://localhost:8000/ws/chat/testroom/");

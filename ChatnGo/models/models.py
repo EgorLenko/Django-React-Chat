@@ -1,3 +1,6 @@
+from collections.abc import Iterable
+from typing import List
+
 import django.db.models
 from django.db import models
 from django.db.models import manager
@@ -15,7 +18,7 @@ class ChatRoom(Base):
     def __str__(self) -> str:
         return f'Chat-room "{self.name}" id - {self.pk}'
 
-    def get_members(self) -> list | django.db.models.QuerySet:
+    def get_members(self) -> List | django.db.models.QuerySet | Iterable | manager | List[manager]: # I dont know what im doing
         return list(self.members) or self.members
 
     @classmethod

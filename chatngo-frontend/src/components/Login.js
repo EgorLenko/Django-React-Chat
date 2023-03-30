@@ -30,9 +30,9 @@ const Login = ({ onLogin }) => {
     }
   };
 
-Login.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-};
+  Login.propTypes = {
+    onLogin: PropTypes.func.isRequired,
+  };
   return (
     <div>
       <h1>Login</h1>

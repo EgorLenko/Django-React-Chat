@@ -12,12 +12,10 @@ import os
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 
-# from channels.security.websocket import AllowedHostsOriginValidator
 from django.core.asgi import get_asgi_application
 
 import ChatnGo.routing
 
-# from ChatnGo.consumers import ChatConsumer
 
 django_asgi_app = get_asgi_application()
 
@@ -31,6 +29,9 @@ application = ProtocolTypeRouter(
         ),
     }
 )
+
+# from channels.security.websocket import AllowedHostsOriginValidator
+# from ChatnGo.consumers import ChatConsumer
 # application = ProtocolTypeRouter({
 #     "http": get_asgi_application(),
 #     "websocket": AllowedHostsOriginValidator(
