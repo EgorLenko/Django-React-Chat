@@ -45,7 +45,7 @@ class Command(BaseCommand):
                             content=fake.pystr(max_chars=100)))
             Message.objects.bulk_create(bulk_message_list)
         except (Exception,) as exc:
-            self.stdout.write(self.style.error('An error occurred while creating fake data'))
-            self.stdout.write(self.style.error(f'Error -> {exc}'))
+            self.stdout.write(self.style.ERROR('An error occurred while creating fake data'))
+            self.stdout.write(self.style.ERROR(f'Error -> {exc}'))
 
         self.stdout.write(self.style.SUCCESS('Successfully create fake data'))

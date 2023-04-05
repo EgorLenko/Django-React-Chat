@@ -23,14 +23,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def save_message(self, username, message):
         user = User.objects.get(username=username)
-        chat_room = ChatRoom.objects.get(name=self.room_name)
+        chat_room = ChatRoom.objects.get(id=int(self.room_name))
         Message.objects.create(user=user, content=message, room=chat_room)
 
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['roomId']
         self.room_group_name = f"chat_{self.room_name}"
-        print(f"Connecting to {self.room_name}")
-        print(f"Parameters:\n {self.room_name=}, {self.room_group_name=}")
+        # print(f"Connecting to {self.room_name}")
+        # print(f"Parameters:\n {self.room_name=}, {self.room_group_name=}")
         # Join room group
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
 
@@ -63,9 +63,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event["message"]
         username = event["username"]
-        print('=========Event check=====================')
-        print(f'{username=}, {message=}')
-        print('=========Event check=====================')
 
         # Send message to WebSocket
         await self.send(

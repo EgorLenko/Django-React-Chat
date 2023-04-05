@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from typing import List
+from typing import Any, List
 
 import django.db.models
 from django.db import models
@@ -18,7 +18,7 @@ class ChatRoom(Base):
     def __str__(self) -> str:
         return f'Chat-room "{self.name}" id - {self.pk}'
 
-    def get_members(self) -> List | django.db.models.QuerySet | Iterable | manager | List[manager]: # I dont know what im doing
+    def get_members(self) -> Any:  # I dont know what im doing
         return list(self.members) or self.members
 
     @classmethod

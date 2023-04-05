@@ -1,10 +1,7 @@
 from typing import Any
 
-from django.conf import settings
-
 # from djongo import models
 from django.db import models
-from pymongo import MongoClient
 
 from .base import Base
 from .models import ChatRoom, UserProfile
@@ -33,7 +30,6 @@ class Message(Base):
     # Params:
     # content(str[1000]) - message content (the message itself);
     # msg_id(str) - Stores an auto-generated key containing the sender, chat room, and message number.
-    # TODO 5: encode msg_id
 
     user: UserProfile = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name="u_messages"
@@ -44,25 +40,11 @@ class Message(Base):
     content: str = models.TextField(max_length=1000)
     msg_id: str = models.TextField(default="0", editable=False)
 
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
-
     class Meta:
-        # using = 'messages_db'
         ordering = ["-created_at"]
 
-    def __init__(self, *args, **kwargs):
-        self.msg_id = f"{self.room.pk}-{self.user.pk}-{self.get_msg_count() + 1}"
-        super().__init__(*args, **kwargs)
-
-
-    def save(self, *args, **kw) -> None:
-        # Creating msg_id key and calling super().save method
-        self.msg_id = f"{self.room.pk}-{self.user.pk}-{self.get_msg_count() + 1}"
-        super().save(self, *args, **kw)
-
     def __str__(self) -> str:
-        return f"Message <{self.msg_id}>"
+        return f"Message <{self.id}> if chat - {self.get_room_id()}, from {self.get_sender_id()}"
 
     def get_message(self) -> str:
         return self.content
