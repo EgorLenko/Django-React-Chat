@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import api from "../services/api";
+import styles from './style/ChatRoomList.module.css';
 
 const ChatRoomList = () => {
   const [rooms, setRooms] = useState([]);
@@ -20,20 +20,19 @@ const ChatRoomList = () => {
   }, []);
 
   return (
-    <ListGroup>
+    <ul className={styles.listGroup}>
       {rooms.map((room) => (
-        <ListGroup.Item key={room.id}>
+        <li key={room.id} className={styles.listGroupItem}>
           {room.name}
           <Link
             to={`/chat/${room.id}`}
-            className="btn btn-primary"
-            style={{ marginLeft: "10px" }}
+            className={styles.btnPrimary}
           >
             Join &ldquo;{room.name}&rdquo;
           </Link>
-        </ListGroup.Item>
+        </li>
       ))}
-    </ListGroup>
+    </ul>
   );
 };
 

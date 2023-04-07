@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import { Container } from "react-bootstrap";
+import PropTypes from "prop-types";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
-import { Button } from "react-bootstrap";
+import styles from './style/ChatRoom.module.css';
 
 const ChatRoom = ({ currentUser }) => {
   const { roomId } = useParams();
@@ -37,8 +37,8 @@ const ChatRoom = ({ currentUser }) => {
   };
 
   return (
-    <div className="chat-room">
-      <div className="messages-container">
+    <div className={styles.chatRoom}>
+      <div className={styles.messagesContainer}>
         {messages.map((message, index) => (
           <Message
             key={index}
@@ -48,11 +48,14 @@ const ChatRoom = ({ currentUser }) => {
         ))}
       </div>
       <SendMessage currentUser={currentUser} socket={socket} />
-      <Button variant="danger" onClick={handleLeaveRoom}>
+      <button className={styles.leaveRoomBtn} onClick={handleLeaveRoom}>
         Leave Room
-      </Button>
+      </button>
     </div>
   );
 };
 
+ChatRoom.propTypes = {
+  currentUser: PropTypes.string.isRequired,
+};
 export default ChatRoom;

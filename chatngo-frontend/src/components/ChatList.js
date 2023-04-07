@@ -1,17 +1,16 @@
 import React from "react";
-// import PropTypes from 'prop-types';
-import { ListGroup } from "react-bootstrap";
 import Message from "./Message";
+import styles from './style/ChatList.module.css';
 
 const ChatList = ({ chats }) => {
   return (
-    <ListGroup>
+    <ul className={styles.listGroup}>
       {chats.map((message, index) => (
-        <ListGroup.Item key={index}>
-          <Message key={index} message={message} isCurrentUser="currentUser" />
-        </ListGroup.Item>
+        <li key={index} className={styles.listGroupItem}>
+          <Message message={message} isCurrentUser="currentUser" />
+        </li>
       ))}
-    </ListGroup>
+    </ul>
   );
 };
 

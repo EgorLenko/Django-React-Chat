@@ -1,0 +1,23 @@
+.listGroup {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listGroupItem {
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.listGroupItem:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-top: none;
+}
+
+.listGroupItem:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}

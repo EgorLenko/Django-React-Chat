@@ -1,0 +1,142 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('../../static/BG-6.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+    /*  width height*/
+    /*  #f0f2f5 */
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+
+}
+
+.loginBox {
+    position: relative;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.loginBox h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+}
+
+.forget {
+    display: flex;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+a:active {
+    color: rgba(41, 172, 239, 0.7);
+}
+
+form .formGroup {
+    margin-bottom: 1.5rem;
+}
+
+form label {
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+form input {
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 181, 85, 0.82);
+    outline: none;
+    border-radius: 0.25rem;
+    /*color: #ff0000;*/
+    /*background: transparent;*/
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+form input:focus {
+    outline: none;
+    border-color: rgba(41, 125, 218, 0.68);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+form button {
+    font-size: 1rem;
+    font-weight: 500;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: rgba(41, 172, 239, 0.7);
+    background-color: rgba(48, 173, 227, 0.8);
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+form button:hover {
+    background-color: rgba(48, 173, 227, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.alert {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.alertDanger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.formControl {
+    font-size: 1rem;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    color: #333;
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 500;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.btnPrimary {
+    background-color: rgba(17, 167, 248, 0.66);
+}
+
+.btnPrimary:hover {
+    background-color: rgb(17, 167, 248);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}

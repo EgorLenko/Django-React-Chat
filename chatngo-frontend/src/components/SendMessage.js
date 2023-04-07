@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import styles from './style/SendMessage.module.css';
 
 const SendMessage = ({ currentUser, socket }) => {
   const [message, setMessage] = useState("");
@@ -14,7 +14,6 @@ const SendMessage = ({ currentUser, socket }) => {
       };
 
       if (socket.readyState === WebSocket.OPEN) {
-        // console.log(JSON.stringify(messageObject));
         socket.send(JSON.stringify(messageObject));
       }
 
@@ -23,19 +22,20 @@ const SendMessage = ({ currentUser, socket }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="message">
-        <Form.Control
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.formGroup}>
+        <input
           type="text"
           placeholder="Type your message ->"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          className={styles.formControl}
         />
-      </Form.Group>
-      <Button variant="primary" type="submit">
+      </div>
+      <button type="submit" className={styles.btnPrimary}>
         Send -&gt;
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 };
 
